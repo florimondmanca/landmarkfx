@@ -1,0 +1,2 @@
+pelican[markdown]==4.9.1
+black==24.4.2
