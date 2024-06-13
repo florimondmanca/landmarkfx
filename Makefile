@@ -1,4 +1,4 @@
-.PHONY: html help clean regenerate serve serve-global devserver devserver-global publish ssh_upload sftp_upload rsync_upload ftp_upload
+.PHONY: build help clean regenerate serve start dist upload
 
 PY?=
 PELICAN?=venv/bin/pelican
@@ -7,12 +7,10 @@ PELICANOPTS=
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/output
+DISTDIR=$(BASEDIR)/dist
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
-SSH_HOST=landmarkfx.florimond.dev
-SSH_PORT=22
-SSH_USER=debian
 SSH_TARGET_DIR=/var/www/landmarkfx
 
 DEBUG ?= 0
@@ -60,7 +58,7 @@ install-python: venv
 	venv/bin/pip install -U wheel setuptools
 	venv/bin/pip install -r requirements.txt
 
-install: insall-python
+install: install-python
 
 build:
 	"$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
@@ -71,11 +69,17 @@ regenerate:
 clean:
 	[ ! -d "$(OUTPUTDIR)" ] || rm -rf "$(OUTPUTDIR)"
 
+serve:
+	"$(PELICAN)" -l "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+
 start:
-	"$(PELICAN)" -lr "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+	make serve PELICANOPTS="-r $(PELICANOPTS)"
 
-publish:
-	"$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(PUBLISHCONF)" $(PELICANOPTS)
+dist:
+	"$(PELICAN)" "$(INPUTDIR)" -o "$(DISTDIR)" -s "$(PUBLISHCONF)" $(PELICANOPTS)
 
-rsync_upload: publish
-	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --include tags --cvs-exclude --delete "$(OUTPUTDIR)"/ "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
+start-dist:
+	make serve OUTPUTDIR=$(DISTDIR)
+
+upload: dist
+	rsync -e "ssh" -P -rvzc --include tags --cvs-exclude --delete "$(DISTDIR)"/ "debian@florimond.dev:$(SSH_TARGET_DIR)"
