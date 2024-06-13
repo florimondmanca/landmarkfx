@@ -62,14 +62,14 @@ install-python: venv
 
 install: insall-python
 
-html:
+build:
 	"$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+
+regenerate:
+	make build PELICANOPTS="$(PELICANOPTS) -r"
 
 clean:
 	[ ! -d "$(OUTPUTDIR)" ] || rm -rf "$(OUTPUTDIR)"
-
-regenerate:
-	make html PELICANOPTS="$(PELICANOPTS) -r"
 
 start:
 	"$(PELICAN)" -lr "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
