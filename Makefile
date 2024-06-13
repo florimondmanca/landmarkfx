@@ -11,7 +11,8 @@ DISTDIR=$(BASEDIR)/dist
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
-SSH_TARGET_DIR=/var/www/landmarkfx
+SSH_HOST=debian@landmarkfx.florimond.dev
+SSH_TARGET_DIR=/home/debian/landmarkfx
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -82,4 +83,15 @@ start-dist:
 	make serve OUTPUTDIR=$(DISTDIR)
 
 upload: dist
-	rsync -e "ssh" -P -rvzc --include tags --cvs-exclude --delete "$(DISTDIR)"/ "debian@florimond.dev:$(SSH_TARGET_DIR)"
+	rsync -e "ssh" -P -rvzc --include tags --cvs-exclude --delete "$(DISTDIR)" "$(SSH_HOST):$(SSH_TARGET_DIR)"
+	rsync -P -rvzc --include tags --cvs-exclude --delete prod/ $(SSH_HOST):/home/debian/prod
+
+prodconfig: upload
+	rsync -P -rvzc --include tags --cvs-exclude --delete prod/ $(SSH_HOST):/home/debian/prod
+	ssh $(SSH_HOST) "bash ./prod/config.sh"
+
+deploy: uploaddist upload
+	ssh $(SSH_HOST) "bash ./prod/run.sh"
+
+ssh:
+	ssh $(SSH_HOST)

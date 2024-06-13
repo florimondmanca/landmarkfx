@@ -10,7 +10,7 @@
             <section>{{ article.summary }}</section>
             <footer>
                 <p>Publié le <time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time></p>
-                <address>By
+                <address>Par
                     {% for author in article.authors %}
                         <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}
