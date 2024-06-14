@@ -76,6 +76,12 @@ serve:
 start:
 	make serve PELICANOPTS="-r $(PELICANOPTS)"
 
+open:
+	open http://localhost:8000
+
+openprod:
+	open https://landmarkfx.florimond.dev
+
 dist:
 	"$(PELICAN)" "$(INPUTDIR)" -o "$(DISTDIR)" -s "$(PUBLISHCONF)" $(PELICANOPTS)
 
