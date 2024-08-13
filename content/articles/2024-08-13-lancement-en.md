@@ -1,8 +1,8 @@
 ---
-title: Lancement du blog Landmark FX
+title: Hola, Landmark FX
 date: 2024-08-13
 slug: lancement
-lang: fr
+lang: en
 ---
 
 Bonjour ! Sur ce site, nous parlerons principalement de **matériel de musique DIY**, notamment de pédales d'effet et autre matériel relatif à la guitare électrique.

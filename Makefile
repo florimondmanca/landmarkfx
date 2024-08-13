@@ -1,18 +1,26 @@
 .PHONY: build help clean regenerate serve start dist upload
 
+include $(wildcard .env.local)
+
 PY?=
 PELICAN?=venv/bin/pelican
 PELICANOPTS=
 
+BABEL?=venv/bin/pybabel
+BABELCONFIG?=babel.cfg
+BABELMESSAGES?=theme/translations/messages.pot
+TRANSLATIONSDIR?=theme/translations/
+
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/output
-DISTDIR=$(BASEDIR)/dist
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
-SSH_HOST=debian@landmarkfx.florimond.dev
-SSH_TARGET_DIR=/home/debian/landmarkfx
+FTP_HOST=landmarkfx.fr
+FTP_USER?=
+FTP_PASSWORD?=
+FTP_TARGET_DIR=/
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -43,9 +51,6 @@ help:
 	@echo '   make serve-global [SERVER=0.0.0.0]  serve (as root) to $(SERVER):80    '
 	@echo '   make devserver [PORT=8000]          serve and regenerate together      '
 	@echo '   make devserver-global               regenerate and serve on 0.0.0.0    '
-	@echo '   make ssh_upload                     upload the web site via SSH        '
-	@echo '   make sftp_upload                    upload the web site via SFTP       '
-	@echo '   make rsync_upload                   upload the web site via rsync+ssh  '
 	@echo '   make ftp_upload                     upload the web site via FTP        '
 	@echo '                                                                          '
 	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html   '
@@ -61,7 +66,22 @@ install-python: venv
 
 install: install-python
 
-build:
+extractmessages:
+	"$(BABEL)" extract --mapping "$(BABELCONFIG)" --output "$(BABELMESSAGES)" ./theme
+
+initmessages:
+	"$(BABEL)" init --input-file "$(BABELMESSAGES)" --output-dir "$(TRANSLATIONSDIR)" --locale fr --domain messages
+	"$(BABEL)" init --input-file "$(BABELMESSAGES)" --output-dir "$(TRANSLATIONSDIR)" --locale en_US --domain messages
+
+compilemessages:
+	"$(BABEL)" compile --directory "$(TRANSLATIONSDIR)" --domain messages
+
+updatemessages:
+	"$(BABEL)" update --input-file "$(BABELMESSAGES)" --output-dir "$(TRANSLATIONSDIR)" --domain messages
+
+messages: extractmessages updatemessages compilemessages
+
+build: messages
 	"$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
 
 regenerate:
@@ -70,34 +90,17 @@ regenerate:
 clean:
 	[ ! -d "$(OUTPUTDIR)" ] || rm -rf "$(OUTPUTDIR)"
 
-serve:
-	"$(PELICAN)" -l "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
-
 start:
-	make serve PELICANOPTS="-r $(PELICANOPTS)"
+	"$(PELICAN)" --listen "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
 
-open:
+publish:
+	make build CONFFILE="$(PUBLISHCONF)"
+
+ftp_upload: publish
+	LFTP_PASSWORD=$(FTP_PASSWORD) lftp ftp://$(FTP_USER)@$(FTP_HOST) -e "mirror -R $(OUTPUTDIR) $(FTP_TARGET_DIR) ; quit" --env-password
+
+local:
 	open http://localhost:8000
 
-openprod:
-	open https://landmarkfx.florimond.dev
-
-dist:
-	"$(PELICAN)" "$(INPUTDIR)" -o "$(DISTDIR)" -s "$(PUBLISHCONF)" $(PELICANOPTS)
-
-start-dist:
-	make serve OUTPUTDIR=$(DISTDIR)
-
-upload: dist
-	rsync -e "ssh" -P -rvzc --include tags --cvs-exclude --delete "$(DISTDIR)" "$(SSH_HOST):$(SSH_TARGET_DIR)"
-	rsync -P -rvzc --include tags --cvs-exclude --delete prod/ $(SSH_HOST):/home/debian/prod
-
-prodconfig: upload
-	rsync -P -rvzc --include tags --cvs-exclude --delete prod/ $(SSH_HOST):/home/debian/prod
-	ssh $(SSH_HOST) "bash ./prod/config.sh"
-
-deploy: uploaddist upload
-	ssh $(SSH_HOST) "bash ./prod/run.sh"
-
-ssh:
-	ssh $(SSH_HOST)
+prod:
+	open https://landmarkfx.fr
