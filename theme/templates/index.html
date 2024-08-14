@@ -9,8 +9,8 @@
             <header> <h2><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalien vers {{ article.title|striptags }}">{{ article.title }}</a></h2> </header>
             <section>{{ article.summary }}</section>
             <footer>
-                <p>{% trans %}index.published_at{% endtrans %} <time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time></p>
-                <address>{% trans %}index.published_by{% endtrans %}
+                <p>{% trans %}article.published_at{% endtrans %} <time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time></p>
+                <address>{% trans %}article.published_by{% endtrans %}
                     {% for author in article.authors %}
                         <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
                     {% endfor %}

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-14 01:24+0200\n"
-"PO-Revision-Date: 2024-08-14 01:12+0200\n"
+"POT-Creation-Date: 2024-08-14 09:56+0200\n"
+"PO-Revision-Date: 2024-08-14 09:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -18,15 +18,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.16.0\n"
 
+#: theme/templates/archives.html:6
+msgid "archives.title"
+msgstr ""
+
+#: theme/templates/article.html:35 theme/templates/index.html:12
+msgid "article.published_at"
+msgstr ""
+
+#: theme/templates/article.html:39
+msgid "article.last_modified"
+msgstr ""
+
+#: theme/templates/article.html:39 theme/templates/article.html:52
+#: theme/templates/article.html:57
+msgid "colon"
+msgstr ""
+
+#: theme/templates/article.html:45 theme/templates/index.html:13
+msgid "article.published_by"
+msgstr ""
+
+#: theme/templates/article.html:52
+msgid "article.category"
+msgstr ""
+
+#: theme/templates/article.html:57
+msgid "article.tags"
+msgstr ""
+
+#: theme/templates/base.html:56
+#, python-format
+msgid " %(cat)s"
+msgstr ""
+
 #: theme/templates/index.html:4
 msgid "index.title"
-msgstr "Tous les articles"
-
-#: theme/templates/index.html:12
-msgid "index.published_at"
-msgstr "Publié le"
-
-#: theme/templates/index.html:13
-msgid "index.published_by"
-msgstr "Par"
+msgstr ""
 

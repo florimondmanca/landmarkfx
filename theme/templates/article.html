@@ -32,29 +32,29 @@
     </header>
     {{ article.content }}
     <footer>
-      <p>Publié le <time datetime="{{ article.date.isoformat() }}">
+      <p>{% trans %}article.published_at{% endtrans %} <time datetime="{{ article.date.isoformat() }}">
         {{ article.locale_date }}
       </time></p>
       {% if article.modified %}
-        <p>Dernière modification : <time datetime="{{ article.modified.isoformat() }}">
+        <p>{% trans %}article.last_modified{% endtrans %}{% trans %}colon{% endtrans %} <time datetime="{{ article.modified.isoformat() }}">
           {{ article.locale_modified }}
         </time></p>
       {% endif %}
       {% if article.authors %}
         <address>
-          Par {% for author in article.authors %}
+          {% trans %}article.published_by{% endtrans %} {% for author in article.authors %}
             <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
           {% endfor %}
         </address>
       {% endif %}
       {% if article.category %}
         <p>
-          Catégorie : <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+          {% trans %}article.category{% endtrans %}{% trans %}colon{% endtrans %} <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
         </p>
       {% endif %}
       {% if article.tags %}
         <p>
-          Tags :
+          {% trans %}article.tags{% endtrans %}{% trans %}colon{% endtrans %}
           {% for tag in article.tags %}
             <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
           {% endfor %}

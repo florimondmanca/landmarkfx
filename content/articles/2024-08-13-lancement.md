@@ -1,6 +1,7 @@
 ---
-title: Lancement du blog Landmark FX
+title: Lancement du blog "Landmark FX"
 date: 2024-08-13
+category: updates
 slug: lancement
 lang: fr
 ---

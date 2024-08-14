@@ -1,14 +1,15 @@
 ---
-title: Hola, Landmark FX
+title: Launching the 'Landmark FX' blog
 date: 2024-08-13
+category: updates
 slug: lancement
+url: launch.html
+save_as: launch.html
 lang: en
 ---
 
-Bonjour ! Sur ce site, nous parlerons principalement de **matériel de musique DIY**, notamment de pédales d'effet et autre matériel relatif à la guitare électrique.
+Welcome to this new website! Here, I'll be writing about **DIY music gear** -- in particular about effects pedal and other gear for electric guitar.
 
-Je lance ce blog suite à une année passée à découvrir la fabrication de pédales d'effet DIY, d'abord grâce aux kits puis par la pratique du **mod**.
+As I've been building DIY effects pedal and mods for a year, this will be the place where I share these experiences and other reflections on this hobby. I may write about **DIY design and manufacturing techniques**, explain some **mods** I implemented in kits or commercial pedals, perhaps do some **circuit analysis**, or share **ressources** on this hobby.
 
-Ce site sera un espace où partager ces expériences, découvertes, étonnements, et autres réflexions liées à ce loisir. On pourra parler **méthodes et techniques de conception et fabrication**, pourquoi pas d'**analyse de circuits**, de **mods** plus ou moins originaux, ou de toute autre réalisation DIY, ou encore de **ressources** sur le sujet.
-
-À très vite pour les premiers billets !
+See you soon!

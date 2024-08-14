@@ -28,6 +28,7 @@ I18N_SUBSITES = {
         "SITENAME": "Landmark FX",
     }
 }
+I18N_TEMPLATES_LANG = "es"  # Other to force FR translations
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None

@@ -53,7 +53,7 @@
         {% endif %}
         {% if DISPLAY_CATEGORIES_ON_MENU %}
           {% for cat, null in categories %}
-            <li><a href="{{ SITEURL }}/{{ cat.url }}" {% if cat==category %} aria-current="page" {% endif %}>{{ cat}}</a></li>
+            <li><a href="{{ SITEURL }}/{{ cat.url }}" {% if cat==category %} aria-current="page" {% endif %}>{{ cat }}</a></li>
           {% endfor %}
         {% endif %}
       </ul></nav>

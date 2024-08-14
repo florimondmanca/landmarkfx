@@ -3,7 +3,7 @@
 {% block title %}{{ SITENAME|striptags }} - Archives{% endblock %}
 
 {% block content %}
-    <h2>Archives de {{ SITENAME }}</h2>
+    <h2>{% trans %}archives.title{% endtrans %} {{ SITENAME }}</h2>
 
     <dl>
         {% for article in dates %}

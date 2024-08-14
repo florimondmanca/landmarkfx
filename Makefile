@@ -81,7 +81,7 @@ updatemessages:
 
 messages: extractmessages updatemessages compilemessages
 
-build: messages
+build:
 	"$(PELICAN)" "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
 
 regenerate:
@@ -93,7 +93,7 @@ clean:
 start:
 	"$(PELICAN)" --listen "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
 
-publish:
+publish: compilemessages
 	make build CONFFILE="$(PUBLISHCONF)"
 
 ftp_upload: publish
