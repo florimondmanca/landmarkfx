@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME|striptags }} - Archives de la période {{ period | reverse | join(' ') }}{% endblock %}
+{% block title %}{{ SITENAME|striptags }} - {% trans %}period_archives.title{% endtrans %} {{ period | reverse | join(' ') }}{% endblock %}
 
 {% block content %}
-    <h2>Archives de la période {{ period | reverse | join(' ') }}</h2>
+    <h2>{% trans %}period_archives.title{% endtrans %} {{ period | reverse | join(' ') }}</h2>
 
     <dl>
         {% for article in dates %}

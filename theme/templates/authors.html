@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME|striptags }} - Auteurs{% endblock %}
+{% block title %}{{ SITENAME|striptags }} - {% trans %}authors{% endtrans %}{% endblock %}
 
 {% block content %}
-    <h2>Auteurs du site {{ SITENAME }}</h2>
+    <h2>{% trans %}authors.title{% endtrans %} {{ SITENAME }}</h2>
     <ul>
         {% for author, articles in authors|sort %}
             <li><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a> ({{ articles|count }})</li>

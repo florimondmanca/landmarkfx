@@ -3,5 +3,5 @@
 {% block title %}{{ SITENAME|striptags }} - {{ tag }}{% endblock %}
 
 {% block content_title %}
-    <h2>Articles avec le tag {{ tag }}</h2>
+    <h2>{% trans %}tag.title{% endtrans %} {{ tag }}</h2>
 {% endblock %}

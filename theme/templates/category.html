@@ -3,5 +3,5 @@
 {% block title %}{{ SITENAME|striptags }} - {{ category }}{% endblock %}
 
 {% block content_title %}
-    <h2>Articles dans la catégorie {{ category }} category</h2>
+    <h2>{% trans %}category.title{% endtrans %} "{{ category }}"</h2>
 {% endblock %}
