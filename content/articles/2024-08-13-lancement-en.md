@@ -1,7 +1,7 @@
 ---
 title: Launching the 'Landmark FX' blog
 date: 2024-08-13
-category: updates
+category: Articles
 slug: lancement
 url: launch.html
 save_as: launch.html
