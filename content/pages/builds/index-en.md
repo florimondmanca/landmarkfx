@@ -2,7 +2,6 @@
 title: Builds
 slug: builds
 lang: en
-status: draft
 ---
 
-* Single-loop MIDI switcher in a 1590A
+* [Single-loop MIDI switcher in a 1590A](builds/loop1.html)
