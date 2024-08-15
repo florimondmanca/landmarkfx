@@ -1,3 +1,4 @@
 pelican[markdown]==4.9.1
 babel==2.16.0
 black==24.4.2
+livereload==2.7.0
