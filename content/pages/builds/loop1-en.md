@@ -1,6 +1,8 @@
 ---
 title: Loop1 (MIDI single-loop switcher)
 slug: builds/loop1
+url: builds/loop1.html
+save_as: builds/loop1.html
 lang: en
 status: hidden
 ---
