@@ -12,4 +12,5 @@ lang: en
 
 ### Utility
 
+<!-- * [Roland EV-5 Mod](builds/roland-ev5-mod.html) - Jack socket and polarity switch mod -->
 * [Loop1](builds/loop1.html) - Single-loop MIDI switcher in a 1590A
